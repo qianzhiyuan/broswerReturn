@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="./jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        bdsajldaksjlsdajlkdaswjlkadjslksda
+        <button id="a">我要回到A页面</button>
+        <button id="b">点我激活返回状态</button>
+    </div>
+    <script>
+        pushHistory();
+        var bool = false
+        setTimeout(function () { bool = true }, 100)
+        window.addEventListener('popstate', function (e) { // 能够监听当前的返回按钮事件
+            if (bool) {
+                alert('我监听到了浏览器的返回按钮事件啦，要回到上一页请先点击另一个按钮') // 根据自己的需求实现自己的功能
+            }
+            pushHistory()
+        }, false)
+
+        function pushHistory (val) { // 存入历史记录数组
+            if (val) {
+                window.history.pushState({ url: 'yes' }, 'yes')
+            } else {
+                window.history.pushState({ url: 'no' }, 'no')
+            }
+        }
+
+        $('#b').click(function () {
+            pushHistory('yes')
+        })
+
+        $('#a').click(function () {
+            var state = window.history.state.url
+            if (state === 'no') {
+                // console.log('no......')
+                history.go(-1) // 模拟浏览器返回上一页
+            } else {
+                window.location.href = 'a.html'
+            }
+        })
+    </script>
+</body>
+</html>
