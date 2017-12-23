@@ -12,7 +12,19 @@
     <a href="b.html">点击切换下一页</a>
 </div>
 <script type="text/javascript">
+    pushHistory();
+    var bool = false
+    setTimeout(function () { bool = true }, 100)
+    window.addEventListener('popstate', function (e) { // 能够监听当前的返回按钮事件
+        if (bool) {
+            alert('我就是首页了！') // 根据自己的需求实现自己的功能
+        }
+        pushHistory()
+    }, false)
 
+    function pushHistory (val) { // 存入历史记录数组
+        window.history.pushState({ url: 'index' }, 'index')
+    }
 </script>
 </body>
 </html>
